@@ -18,7 +18,7 @@ struct Node
 class HashTable
 {
 private:
-    Node ** nodes;       /*节点数组*/
+    Node ** nodes;      /*节点数组,nodes为指针数组*/
     int count;          /*哈希表中元素的实际数量*/
     int table_size;     /*哈希表容量长度*/
     int threshold;      /*阈值,阈值 = 哈希表容量长度 * 加载因子(这里默认设为0.75)*/
@@ -52,7 +52,7 @@ public:
         return key % table_size;
     }
 
-    /*插入节点,无法插入key已经存在的值*/
+    /*插入节点,头插法,无法插入key已经存在的值*/
     bool HashAdd(unsigned int key, int value)
     {
         if (count >= threshold)
