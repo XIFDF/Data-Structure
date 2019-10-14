@@ -181,6 +181,6 @@ int main()
     
     delete table;
     table = NULL;
-    system("pause");
+    system("pause"); //windows api
     return 0;
 }
