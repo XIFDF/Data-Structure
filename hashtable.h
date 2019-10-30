@@ -27,7 +27,7 @@ public:
     HashTable(int table_size) : count(0), table_size(table_size)
     {
         nodes = new Node*[table_size]();
-        threshold = table_size * 0.75;
+        threshold = int(table_size * 0.75);
     }
 
     ~HashTable()
@@ -115,7 +115,7 @@ public:
         int new_size = 2 * old_size;
         nodes = new Node*[new_size]();
         table_size = new_size;
-        threshold = new_size * 0.75;
+        threshold = int(new_size * 0.75);
 
         for (int i = 0; i < old_size; ++i)
         {

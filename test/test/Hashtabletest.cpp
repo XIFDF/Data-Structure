@@ -15,9 +15,9 @@ TEST(Hashtabletest, get_result)
     HashTable * table = new HashTable(5);
 
     /*指定3条数据,验证是否正确*/
-    table->HashAdd(666, 123);
-    table->HashAdd(32155, 12345);
-    table->HashAdd(6668989, 1234567);
+    ASSERT_TRUE(table->HashAdd(666, 123));
+    ASSERT_TRUE(table->HashAdd(32155, 12345));
+    ASSERT_TRUE(table->HashAdd(6668989, 1234567));
 
     try
     {
