@@ -16,3 +16,6 @@ test/.vs/test/v15/.suo
 *.filters
 *.iobj
 *.ipdb
+/.vs
+*.recipe
+*.txt
