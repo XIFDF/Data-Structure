@@ -8,40 +8,42 @@ public:
     vector<shared_ptr<Trie>> children;
     bool isEnd;
     
-    Trie():children(26), isEnd(false){}
+    Trie(bool isEnd = false) : children(26), isEnd(isEnd) { }
     ~Trie() = default;
 
-    void insert(const string& word) {
-        Trie* node = this;
+    void insert(const string& word, shared_ptr<Trie> t) {
+        shared_ptr<Trie> node = t;
         for (auto i : word) {
             i -= 'a';
             if (node->children[i] == nullptr) {
-                node->children[i] = make_shared<Trie>();
+                node->children[i] = make_shared<Trie>(false);
             }
-           node = node->children[i].get();
+            node = node->children[i];
         }
+        node->isEnd = true;
     }
     
-    bool search(const string& word) {
-        auto ptr = searchPrefix(word);
+    bool search(const string& word, shared_ptr<Trie> t) {
+        auto ptr = searchPrefix(word, t);
         if (ptr != nullptr && ptr->isEnd) return true;
         else return false;
     }
 
-    bool searchWith(const string& word) {
-        auto ptr = searchPrefix(word);
+    bool searchWith(const string& word, shared_ptr<Trie> t) {
+        auto ptr = searchPrefix(word, t);
         if (ptr == nullptr) return false;
         else return true;
     }
-    Trie* searchPrefix(const string& word) {
-        Trie* node = this;
+
+    shared_ptr<Trie> searchPrefix(const string& word, shared_ptr<Trie> t) {
+        shared_ptr<Trie> node = t;
         for (auto i : word) {
             i -= 'a';
             if (node->children[i] == nullptr) {
                 return nullptr;
             }
             else {
-                node = node->children[i].get();
+                node = node->children[i];
             }
         }
         return node;
