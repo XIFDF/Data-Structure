@@ -3,7 +3,7 @@
 #include <vector>
 #include <memory>
 using namespace std;
-class Trie {
+class Trie : public std::enable_shared_from_this<Trie>{
 public:
     vector<shared_ptr<Trie>> children;
     bool isEnd;
@@ -11,8 +11,8 @@ public:
     Trie(bool isEnd = false) : children(26), isEnd(isEnd) { }
     ~Trie() = default;
 
-    void insert(const string& word, shared_ptr<Trie> t) {
-        shared_ptr<Trie> node = t;
+    void insert(const string& word) {
+        shared_ptr<Trie> node = shared_from_this();
         for (auto i : word) {
             i -= 'a';
             if (node->children[i] == nullptr) {
@@ -23,20 +23,20 @@ public:
         node->isEnd = true;
     }
     
-    bool search(const string& word, shared_ptr<Trie> t) {
-        auto ptr = searchPrefix(word, t);
+    bool search(const string& word) {
+        auto ptr = searchPrefix(word);
         if (ptr != nullptr && ptr->isEnd) return true;
         else return false;
     }
 
-    bool searchWith(const string& word, shared_ptr<Trie> t) {
-        auto ptr = searchPrefix(word, t);
+    bool searchWith(const string& word) {
+        auto ptr = searchPrefix(word);
         if (ptr == nullptr) return false;
         else return true;
     }
 
-    shared_ptr<Trie> searchPrefix(const string& word, shared_ptr<Trie> t) {
-        shared_ptr<Trie> node = t;
+    shared_ptr<Trie> searchPrefix(const string& word) {
+        shared_ptr<Trie> node = shared_from_this();
         for (auto i : word) {
             i -= 'a';
             if (node->children[i] == nullptr) {
