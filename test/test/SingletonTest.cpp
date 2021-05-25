@@ -27,7 +27,7 @@ void proc2()
 	ss2 << &MYA;
 }
 
-TEST(SingleonTest, get_result)
+TEST(SingletonTest, get_result)
 {
 	thread t1(proc1);
 	thread t2(proc2);
